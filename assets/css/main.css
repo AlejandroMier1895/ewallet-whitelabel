@@ -1,0 +1,7 @@
+:root {
+    --text-default: #3E3A35;
+}
+
+body {
+    color: var(--text-default)!important;
+}

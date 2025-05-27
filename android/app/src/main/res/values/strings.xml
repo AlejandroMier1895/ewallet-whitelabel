@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ewallet</string>
+    <string name="title_activity_main">ewallet</string>
+    <string name="package_name">com.ewalletapp.app</string>
+    <string name="custom_url_scheme">com.ewalletapp.app</string>
+</resources>
