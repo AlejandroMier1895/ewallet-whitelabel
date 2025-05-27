@@ -14,9 +14,65 @@
                                     <div class="mt-2 phone title-text"> Enviar a:</div>
                                 </b-col>
                             </b-row>
+                            <div class="d-flex justify-content-center align-items-center contacts-parent">
+                                <b-card id="contacts-card">
+                                    <div class="mt-3 ml-2">
+                                        <div v-if="loadingContacts" class="d-flex justify-content-center align-items-center skeletons-div">
+                                            <b-list-group-item @click="$bvModal.show('addContactModal')" class="contacts-item align-items-center pl-0 pr-0">
+                                                <div class="phone contact--icon"><img src="../static/img/ewallet-plus.svg" alt="Agregar contacto." role="img"/></div>
+                                                <div class="contact--info phone">
+                                                    <div class="addContact-txt phone">Agregar</div>
+                                                </div>
+                                            </b-list-group-item>
+                                            <div v-for="n in 4" class="skeleton-item">
+                                                <div class="d-flex justify-content-center">
+                                                    <b-skeleton  type="avatar" class="skeleton-icon"></b-skeleton>
+                                                </div>
+                                                <div class="contact--info">
+                                                    <div class="addContact-txt skeleton-text phone">Agregar</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <b-list-group v-else-if="!loadingContacts" class="mt-3 contact--list position-relative">
+                                            <b-list-group-item @click="$bvModal.show('addContactModal')" class="contacts-item align-items-center pl-0 pr-0">
+                                                <div class="contact--icon plus-icon"><img src="../static/img/ewallet-plus.svg" alt="Agregar contacto." role="img"/></div>
+                                                <div class="contact--info">
+                                                    <div class="addContact-txt phone">Agregar</div>
+                                                </div>
+                                            </b-list-group-item>
+                                            <div v-if="contacts.length === 0" class="addContacts-text" @click="$bvModal.show('addContactModal')">Agrega nuevos contactos +</div>
+                                            <b-list-group-item v-for="contact in filteredContacts" :key="contact.email"
+                                                class="contacts-item align-items-center pl-0 pr-0">
+                                                <div @click="selectContact(contact)" class="contact--icon">
+                                                    <b-avatar class="mr-3 avatar" :src="contact.profile_picture"/>
+                                                </div>
+                                                <div tabindex="0" @keyup.enter="selectContact(contact)" @click="selectContact(contact)" class="contact--info">
+                                                    <div class="contact--name addContact-txt">{{ contactNicknameFormatter(contact.nickname) }}</div>
+                                                    <div class="contact--email">{{ contact.contact_user_email }}</div>
+                                                </div>
+                                            </b-list-group-item>
+                                            <b-list-group-item v-if="serverError" class="d-flex align-items-center pl-0 pr-0">
+                                                <div @click="account = 'Contactos no disponibles'">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-database-fill-x mr-3" viewBox="0 0 16 16" style="color: #8C4B1F;">
+                                                        <path d="M8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1"/>
+                                                        <path d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12 12 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7m6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.55 4.55 0 0 1 .23-2.002m-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.5 4.5 0 0 1-1.3-1.905"/>
+                                                        <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m-.646-4.854.646.647.646-.647a.5.5 0 0 1 .708.708l-.647.646.647.646a.5.5 0 0 1-.708.708l-.646-.647-.646.647a.5.5 0 0 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 .708-.708"/>
+                                                    </svg>
+                                                </div>
+                                                <div class="contact--info" @click="account = 'Contactos no disponibles'">
+                                                    <div class="contact--name-serverError">Contactos no disponibles</div>
+                                                    <div class="contact--email-serverError">Trabajamos para servirte</div>
+                                                </div>
+                                            </b-list-group-item>
+                                        </b-list-group>
+                                    </div>
 
-                            <b-row class="ml-lg-2 mt-4 transfer-row">
-                                <b-col cols="12" xl="10" lg="10">
+                                    <add-contact-modal @contactSaved="()=>{getContacts(); account = '';}" @cleanContact="()=>{contactText.allowMaxTransfer=false; contactText.ewalletId = ''; contactText.alias = '';}" :editContact="editContact" :contactText="contactText" :minAmount="minAmount" @error="()=>{$bvModal.hide('addContactModal')}"></add-contact-modal>
+                                </b-card>
+                            </div>
+                            <b-row class="ml-lg-2 transfer-row d-flex justify-content-center align-items-center">
+                                <b-col cols="12" xl="8" lg="10">
                                     <b-form @submit.prevent="checkTransfer()" class="mt-lg-2">
                                         <div class="mt-3 form">
                                             <span class="input-text font-weight-bold computer">Usuario</span>
@@ -58,92 +114,6 @@
                                 :ewallet_pin="ewallet_pin" @inputewalletPin="ewallet_pin = $event" @finishTransfer="finishTransfer"
                                 :pin_error="pin_error" @cleanPin="cleanPin" :icon="account_profilePicture" :loading="loadingTransaction"></confirm-transaction-modal>
                             <succesfull-transaction-modal :transaction="transaction" action="Transferir"></succesfull-transaction-modal>
-                        </b-card>
-
-                        <b-card id="contacts-card" :class="topMessageActive ? 'transfer-page-card-smallPadding' : ''">
-                            <b-row class="mt-xl-2 addContact">
-                                <b-col id="contacts-card-title" cols="5">
-                                    <span class="title-text">Contactos</span>
-                                </b-col>
-                                <b-col cols="7">
-                                    <span tabindex="0" class="add-contact-text d-flex justify-content-end mr-2" @click="() => { editContact = false; contactTextGenerator(); $bvModal.show('addContactModal') }" @keyup.enter="() => { editContact = false; contactTextGenerator(); $bvModal.show('addContactModal') }">+ Agregar Contacto</span>
-                                </b-col>
-                            </b-row>
-
-                            <div class="mt-3 ml-2">
-                                <b-input-group>
-                                    <template #prepend>
-                                        <b-input-group-text>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"
-                                                style="color: #8C4B1F;">
-                                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                                            </svg>
-                                        </b-input-group-text>
-                                    </template>
-                                    <b-form-input type="search" placeholder="Buscar" v-model="searchContact"></b-form-input>
-                                </b-input-group>
-                                
-                                <div v-if="loadingContacts" class="d-flex justify-content-center align-items-center skeletons-div">
-                                    <b-list-group-item @click="$bvModal.show('addContactModal')" class="contacts-item align-items-center pl-0 pr-0">
-                                        <div class="phone contact--icon"><img src="../static/img/ewallet-plus.svg" alt="Agregar contacto." role="img"/></div>
-                                        <div class="contact--info phone">
-                                            <div class="addContact-txt phone">Agregar</div>
-                                        </div>
-                                    </b-list-group-item>
-                                    <div v-for="n in 4" class="skeleton-item">
-                                        <div class="d-flex justify-content-center">
-                                            <b-skeleton  type="avatar" class="phone skeleton-icon"></b-skeleton>
-                                        </div>
-                                        <div class="contact--info phone">
-                                            <div class="addContact-txt skeleton-text phone">Agregar</div>
-                                        </div>
-                                    </div>
-                                    <div class="computer my-5" style="color:#8C4B1F98;" >
-                                        <b-spinner class="align-middle"></b-spinner>
-                                        <strong>Cargando</strong>
-                                    </div>
-                                </div>
-                                
-                                <b-list-group v-else-if="!loadingContacts" class="mt-3 contact--list position-relative">
-                                    <b-list-group-item @click="$bvModal.show('addContactModal')" class="contacts-item align-items-center pl-0 pr-0">
-                                        <div class="phone contact--icon plus-icon"><img src="../static/img/ewallet-plus.svg" alt="Agregar contacto." role="img"/></div>
-                                        <div class="contact--info phone">
-                                            <div class="addContact-txt phone">Agregar</div>
-                                        </div>
-                                    </b-list-group-item>
-                                    <div v-if="contacts.length === 0" class="addContacts-text phone" @click="$bvModal.show('addContactModal')">Agrega nuevos contactos +</div>
-                                    <b-list-group-item v-for="contact in filteredContacts" :key="contact.email"
-                                        class="contacts-item align-items-center pl-0 pr-0">
-                                        <div @click="selectContact(contact)" class="contact--icon">
-                                            <b-avatar class="mr-3 avatar" :src="contact.profile_picture"/>
-                                        </div>
-                                        <div tabindex="0" @keyup.enter="selectContact(contact)" @click="selectContact(contact)" class="contact--info">
-                                            <div class="contact--name addContact-txt">{{ contactNicknameFormatter(contact.nickname) }}</div>
-                                            <div class="contact--email">{{ contact.contact_user_email }}</div>
-                                        </div>
-                                    </b-list-group-item>
-                                    <b-list-group-item v-if="serverError" class="d-flex align-items-center pl-0 pr-0">
-                                        <div @click="account = 'Contactos no disponibles'">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-database-fill-x mr-3" viewBox="0 0 16 16" style="color: #8C4B1F;">
-                                                <path d="M8 1c-1.573 0-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4s.875 1.755 1.904 2.223C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777C13.125 5.755 14 5.007 14 4s-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1"/>
-                                                <path d="M2 7v-.839c.457.432 1.004.751 1.49.972C4.722 7.693 6.318 8 8 8s3.278-.307 4.51-.867c.486-.22 1.033-.54 1.49-.972V7c0 .424-.155.802-.411 1.133a4.51 4.51 0 0 0-4.815 1.843A12 12 0 0 1 8 10c-1.573 0-3.022-.289-4.096-.777C2.875 8.755 2 8.007 2 7m6.257 3.998L8 11c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V10c0 1.007.875 1.755 1.904 2.223C4.978 12.711 6.427 13 8 13h.027a4.55 4.55 0 0 1 .23-2.002m-.002 3L8 14c-1.682 0-3.278-.307-4.51-.867-.486-.22-1.033-.54-1.49-.972V13c0 1.007.875 1.755 1.904 2.223C4.978 15.711 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.5 4.5 0 0 1-1.3-1.905"/>
-                                                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m-.646-4.854.646.647.646-.647a.5.5 0 0 1 .708.708l-.647.646.647.646a.5.5 0 0 1-.708.708l-.646-.647-.646.647a.5.5 0 0 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 .708-.708"/>
-                                            </svg>
-                                        </div>
-                                        <div class="contact--info" @click="account = 'Contactos no disponibles'">
-                                            <div class="contact--name-serverError">Contactos no disponibles</div>
-                                            <div class="contact--email-serverError">Trabajamos para servirte</div>
-                                        </div>
-                                    </b-list-group-item>
-                                </b-list-group>
-                            </div>
-
-                            <div class="mt-auto adm-contacts" tabindex="0">
-                                Administrar Contactos
-                            </div>
-
-                            <add-contact-modal @contactSaved="()=>{getContacts(); account = '';}" @cleanContact="()=>{contactText.allowMaxTransfer=false; contactText.ewalletId = ''; contactText.alias = '';}" :editContact="editContact" :contactText="contactText" :minAmount="minAmount" @error="()=>{$bvModal.hide('addContactModal')}"></add-contact-modal>
                         </b-card>
                     </b-card-group>
                 </b-col>
@@ -434,7 +404,6 @@ html {
         flex-grow: 2;
         background: #D7C1AA;
         box-shadow: 2px 2px 29px rgba(0, 0, 0, 0.08);
-        border-radius: 10px;
         border-color: transparent;
         border-top-right-radius: 0px;
         border-bottom-right-radius: 0px;
@@ -460,7 +429,6 @@ html {
             font-size: 18px;
             line-height: 29.26px;
             color:#3E3A35;
-            border-radius: 5px;
             border: 1px solid rgba(196, 196, 196, 0.37);
             background: #F8F1E7;
             height: 60px;
@@ -544,7 +512,6 @@ html {
 
             background: #8C4B1F;
             box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
             border-color: transparent;
         }
 
@@ -555,82 +522,159 @@ html {
     .transfer-page-card-smallPadding{
         margin-top: 25px!important;
     }
+    .contatcs-parent{
+        width: 100%;
+    }
     #contacts-card {
-        margin-top: 85px;
-        background: #F8F1E7;
-        box-shadow: 2px 2px 29px rgba(0, 0, 0, 0.08);
-        border-radius: 10px;
-        border-color: transparent;
-        border-top-left-radius: 0px;
-        border-bottom-left-radius: 0px;
+        background: transparent;
         min-width: 330.664px;
+        max-width: 75%;
+        min-width: 75%;
+        min-height: 158px;
+        order: 1;
+        margin: 0;
+        box-shadow: none;
+        border: none;
         .card-body {
-            display: flex;
-            flex-direction: column;
+            > div {
+                margin-top: 0 !important;
 
-            .title-text {
-                font-size: 1.125rem;
+                &.ml-2 {
+                    margin-left: 1rem !important;
+                }
+                .list-group {
+                    margin-top: 0 !important;
+                    display: flex;
+                    flex-direction: row;
+                    width: 100%;
+                    max-width: 100%;
+                    overflow: scroll;
+                    // Hide scrollbar for IE, Edge and Firefox
+                    -ms-overflow-style: none;  /* IE and Edge */
+                    scrollbar-width: none;  /* Firefox */
+                }
+                .list-group::-webkit-scrollbar {
+                    // Hide scrollbar for Chrome, Safari and Opera
+                    display: none;
+                }
             }
-
-            .add-contact-text {
-                color: #3E3A35;
+            .skeletons-div{
+                .skeleton-item{
+                    min-width: 20%;
+                }
+                .skeleton-icon{
+                    width: 68px;
+                    height: 68px;
+                    margin: 12px 0 0 0;
+                }
+                .skeleton-text{
+                    margin: 20px auto 0 auto;
+                }
+            }
+            .phone{
+                div{
+                    height: 64px;
+                }
+            }
+            .addContact-txt{
+                font-family: "Montserrat";
+                font-size: 14px;
+                color: transparent;
                 text-align: center;
-                font-size: 0.875rem;
-                font-weight: 700;
-                line-height: normal;
-                cursor: pointer;
+                line-height: 1;
+                height: auto!important;
             }
-
-            .form-control[type*='search'] {
-                height: 40px;
-                border: none;
-                font-family: 'Poppins', sans-serif;
-                font-weight: 700;
-                line-height: 29.26px;
-                background: #EAD8C3;
-                color: #8C4B1F;
-
-                &::placeholder {
+            .list-group-item{
+                min-width: 20%;
+                max-width: 20%;
+                .contact--info{
+                    margin: 20px auto 0 auto;
+                }
+                .contact--icon{
+                    display: flex!important;
+                    justify-content: center;
+                    img{
+                        min-height: 68px;
+                        min-width: 68px;
+                    }
+                }
+                .contact--iconEmpty{
+                    align-items: center;
+                    background-color: var(--withdraw);
+                    border-radius: 50%;
+                    height: 68px;
+                    width: 68px;
+                    img{
+                        min-height: auto;
+                        min-width: auto;
+                        width: auto;
+                        height: auto;
+                    }
+                    img.contact-avatar-empty-v{
+                        width: 36.83px;
+                        height: auto;
+                    }
+                    img.contact-avatar-empty-a{
+                        width: 24.08px;
+                        height: auto;
+                    }
+                    img.contact-avatar-empty-r{
+                        width: auto;
+                        height: 22.67px;
+                    }
+                    img.contact-avatar-empty-o{
+                        width: 24.08px;
+                        height: auto;
+                    }
+                }
+                .avatar{
+                    margin-right: 0!important;
+                    min-height: 68px;
+                    min-width: 68px;
+                }
+                .contact--name{
                     color: #8C4B1F;
-                    font-weight: 700;
-                    font-size: 14px;
                 }
-
-                &:focus {
-                    box-shadow: none;
-                    outline: none;
-                }
-            }
-
-            .input-group {
-                border-radius: 8px;
-                box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.10);
-
-                >.input-group-prepend>.input-group-text {
-                    height: 40px;
-                    border-color: transparent;
-                    border-top-right-radius: 0px;
-                    border-bottom-right-radius: 0px;
-                    background: #EAD8C3;
+                .contact--nameEmpty{
+                    color: transparent;
                 }
             }
             .contact--list{
-                max-height: 22rem;
-                overflow-y: scroll;
                 .contacts-item{
-                    display: flex;
+                    display: block;
+                }
+            }
+            .addContacts-text{
+                position: absolute;
+                bottom: 0;
+                right: 35px;
+
+                font-family: 'Poppins', sans-serif;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 10.97px;
+                color: #8C4B1F;
+            }
+            .addContact div:not(.phone),
+            .input-group {
+                display: none;
+            }
+
+            .contact--info{
+                .contact--email{
+                    display: none;
                 }
             }
 
-            .contact--list::-webkit-scrollbar {
-                display: none; /*Chrome & safari*/
+            .b-skeleton{
+                background-color: #8C4B1F60;
             }
-
+            
             .list-group-item {
                 border: none;
                 padding: 0;
                 margin: 12px 0 0 0;
-                background: #F8F1E7;
+                background: transparent;
                 cursor: pointer;
 
                 .avatar {
@@ -646,36 +690,6 @@ html {
                     color: #3E3A35;
                     font-size: 15px;
                 }
-
-                .contact--email {
-                    color: #828282;
-                    font-size: 0.875rem;
-                }
-
-                .contact--email-serverError {
-                    color: #828282;
-                    font-size: 0.700rem;
-                }
-            }
-
-            .adm-contacts {
-                padding: 32px;
-                margin: auto -20px -21px; // Compensate b-card padding
-                width: calc(100% + 42px); // Sum with negative margin to fill all b-card
-                border-radius: 10px 10px 10px 0px;
-                box-shadow: 2px 2px 29px 0px rgba(0, 0, 0, 0.08);
-                text-align: center;
-                color: #3E3A35;
-                cursor: pointer;
-            }
-            .contact--info{
-                width: 70%;
-            }
-            .icon-pencil{
-                color: #8C4B1F;
-            }
-            .icon-trash{
-                color: #B03A2E;
             }
         }
     }
@@ -700,6 +714,7 @@ html {
         }
     }
     @media screen and (max-width:1205px) {
+        margin-top: 2rem;
         .phone {
             display: block !important;
         }
@@ -724,7 +739,6 @@ html {
             #transfer-card {
                 order: 2;
                 flex-grow: 4;
-                border-radius: 10px;
                 margin-top: 0px;
                 margin-bottom: 25%;
                 box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
@@ -744,7 +758,6 @@ html {
                 .form-control {
                     width: 100%;
                     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
-                    border-radius: 40px;
                     border: transparent;
                     padding-left: 5%!important;
                     background: #D7C1AA;
@@ -762,7 +775,6 @@ html {
                     margin-top: 10%;
                     margin-bottom: -1%;
                     width: 60%;
-                    border-radius: 25px;
                 }
 
                 .form-check-input {
@@ -782,15 +794,20 @@ html {
                 margin-top: 0px!important;
             }
             #contacts-card {
+                display: block;
+                
                 order: 1;
                 margin: 0;
                 box-shadow: none;
                 border: none;
-
+                max-width: 100%;
+                min-width: 100%;
                 .card-body {
                     display: flex;
                     flex-direction: row;
                     align-items: center;
+                    padding-left: 0px;
+                    margin-left: -30px;
                     
                     > div {
                         margin-top: 0 !important;
@@ -828,6 +845,7 @@ html {
                             margin: 20px auto 0 auto;
                         }
                     }
+                    
                     .phone{
                         div{
                             height: 64px;
@@ -913,8 +931,7 @@ html {
                         color: #8C4B1F;
                     }
                     .addContact div:not(.phone),
-                    .input-group,
-                    .adm-contacts {
+                    .input-group {
                         display: none;
                     }
 

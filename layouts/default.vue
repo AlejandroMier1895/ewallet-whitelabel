@@ -245,7 +245,6 @@ html {
 }
 .loadingBalance {
     margin-left: 10px;
-    //margin-top: 
     height: 22px;
     .dot-flashing {
       position: relative;

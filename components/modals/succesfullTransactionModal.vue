@@ -120,7 +120,6 @@ html { min-height: 100%; }
                 width: 75%!important;
                 height: auto!important;
                 border: 1px solid #8C4B1F;
-                border-radius: 10px;
                 box-shadow: 0px 4px 4px 0px #3E3A3540;
             }
         }
@@ -188,7 +187,6 @@ html { min-height: 100%; }
         height: 44px;
         background: #8C4B1F;
         box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
         border-color:transparent;
         font-style: normal;
         font-weight: 600;

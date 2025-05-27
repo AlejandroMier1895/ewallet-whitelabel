@@ -24,7 +24,7 @@ export default function({ $axios }) {
         config.headers = config.headers || {}; // prevención por si algún interceptor accede a Authorization
         return new Promise(resolve => {
             setTimeout(() => {
-                resolve([200, { deposits: 5000.60, withdraws: 3000.30, transfers: 2000.0, purchases: 10000.0 }]);
+                resolve([200, { transfers: 2000.0, deposits: 5000.60, withdraws: 3000.30, purchases: 10000.0 }]);
             }, 1500); // 1500 ms de delay
         });
     });
@@ -59,6 +59,8 @@ export default function({ $axios }) {
                     document_type: "CC",
                     validation_code: "100268",
                     ewallet_id: "0780134670",
+                    debit_card: "0780134670",
+                    credit_card: "2342912317",
                     phone: "2291231234",
                     clabe: "229123123429123123",
                     email: "alejandro@ewallet.com",
