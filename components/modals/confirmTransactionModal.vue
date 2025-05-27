@@ -192,10 +192,8 @@ html { min-height: 100%; }
       flex: 2;
       max-width: 50%;
       border: 2px solid #8C4B1F;
-      border-radius: 10px;
       .card-left{
         background: #FAF6F0;
-        border-radius:10px 0px 0px 10px;
         border-color: transparent;
         box-shadow: 2px 2px 29px rgba(0, 0, 0, 0.08);
       }
@@ -203,7 +201,6 @@ html { min-height: 100%; }
         background: #FAF6F0;
         border-color: transparent;
         box-shadow: 2px 2px 29px 0px rgba(0, 0, 0, 0.08);
-        border-radius: 0px 10px 10px 0px;
         flex: 1.8;
         .card-body{
           padding-left: 30px;
@@ -278,7 +275,6 @@ html { min-height: 100%; }
         color:#3E3A35;
         width: 100%;
         height: 60px;
-        border-radius: 5px;
         text-align: center;
         padding-right: 35px;
         padding-left: 35px;
@@ -302,7 +298,6 @@ html { min-height: 100%; }
     height: 44px;
     background: #8C4B1F;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
     border-color:transparent;
     font-style: normal;
     font-weight: 600;
@@ -322,7 +317,6 @@ html { min-height: 100%; }
     height: 44px;
     background: #FAF6F0;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
     border-color:#8C4B1F !important;
     font-style: normal;
     font-weight: 600;

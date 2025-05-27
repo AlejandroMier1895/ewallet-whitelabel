@@ -9,7 +9,6 @@
                                 <b-card id="account-balance-card">
                                     <div class="ml-3 balance-text">
                                         <span>Balance de Cuenta</span>
-                                        <div style="width:12%; "><hr style="border: 1px solid #3E3A35;"/></div>
                                     </div>
                                     <div class="balance-div">
                                         <div class="mt-5 d-flex justify-content-end" :class="balance === '...' ? 'loadingBalance' : ''"> 
@@ -56,30 +55,43 @@
                                 </b-card>
                             </b-card-group>
 
-                            <b-card-group columns class="card-columns">
+                            <b-card-group class="card-columns">
                                 <b-card class="personal-info-card trophy-card">
                                     <div>
-                                        <div class="profile-picture-div">
-                                            <b-avatar :src="profilePicture"></b-avatar>
+                                        <div class="d-flex justify-content-start align-items-center mb-3">
+                                            <div class="profile-picture-div mr-3">
+                                                <b-avatar :src="profilePicture"></b-avatar>
+                                            </div>
+                                            <div class="account-info">
+                                                <div class="description">
+                                                    <div class="accountInfo-ewalletletID">{{ewalletUser.name + " " +ewalletUser.paternal_surname}}</div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="account-info">
-                                        <div class="title">E-wallet ID</div>
-                                        <div class="description d-flex align-items-center">
-                                            <div class="accountInfo-ewalletletID mr-3">{{ewalletUser.ewallet_id}}</div>
-                                            <button class="btn copy-btn" type="button" @click="copy(ewalletUser.ewallet_id)" v-b-tooltip.hover :title="tooltipMessage" @mouseleave="redefineTooltip">
-                                                <img class="copyToClipboard" src="../static/img/ewallet-copyToClipboard.svg" alt="Copiar ewalletID." role="img"/>
-                                            </button>
+                                        <div class="d-flex justify-content-start align-items-center mb-3">
+                                            <img class="card-image mr-3" src="/img/ewallet-debitCard.svg" alt="Debit card icon">
+                                            <div class="account-info">
+                                                <div class="title">Débito</div>
+                                                <div class="description d-flex justify-content-center align-items-center">
+                                                    <div class="accountInfo-ewalletletID mr-3">{{ewalletUser.debit_card}}</div>
+                                                    <button class="btn copy-btn" type="button" @click="copy(ewalletUser.debit_card)" v-b-tooltip.hover :title="tooltipMessage" @mouseleave="redefineTooltip">
+                                                        <img class="copyToClipboard" src="../static/img/ewallet-copyToClipboard.svg" alt="Copiar ewalletID." role="img"/>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </b-card>
-                                <b-card class="personal-info-card trophy-card">
-                                    <div class="d-flex justify-content-center align-items-center">
-                                        <img class="img-style" src="/img/ewallet-trophy.svg" alt="Medalla con palomita en el centro como representación del logro de subir tu cuenta de nivel."/>
-                                    </div>
-                                    <div class="account-info">
-                                        <div class="title">Nivel de Verificación</div>
-                                        <span class="description">Nivel {{ewalletUser.kyc}}</span>
+                                        <div class="d-flex justify-content-start align-items-center">
+                                            <img class="card-image mr-3" src="/img/ewallet-creditCard.svg" alt="Credit card icon">
+                                            <div class="account-info">
+                                                <div class="title">Crédito</div>
+                                                <div class="description d-flex justify-content-center align-items-center">
+                                                    <div class="accountInfo-ewalletletID mr-3">{{ewalletUser.credit_card}}</div>
+                                                    <button class="btn copy-btn" type="button" @click="copy(ewalletUser.credit_card)" v-b-tooltip.hover :title="tooltipMessage" @mouseleave="redefineTooltip">
+                                                        <img class="copyToClipboard" src="../static/img/ewallet-copyToClipboard.svg" alt="Copiar ewalletID." role="img"/>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </b-card>
                             </b-card-group>
@@ -93,61 +105,10 @@
                     <b-card-group id="dashboard-second-cardGroup" class="gap-20">
                         <b-card id="action-btns-card">
                             <b-row>
-                                <b-col class="action-btn-col" cols="6" xl="3">
-                                    <nuxt-link to='/transfer'>
-                                        <b-card class="action-btn">
-                                            <div class="d-flex justify-content-end mt-1 mr-2">
-                                                <div class="action-img d-flex justify-content-center align-items-center">
-                                                    <img class="img-size" src="/img/ewallet-transfer.svg" alt="Ir a Transferir." role="img"/>
-                                                </div>
-                                            </div>
-                                            <div class="text ml-2">Transferir</div>
-                                        </b-card>
-                                    </nuxt-link>
-                                </b-col>
-                                <b-col class="action-btn-col" cols="6" xl="3">
-                                <nuxt-link to='/deposit'>
-                                        <b-card class="action-btn">
-                                            <div class="d-flex justify-content-end mt-1 mr-2">
-                                                <div class="action-img d-flex justify-content-center align-items-center">
-                                                    <img class="img-size" src="/img/ewallet-deposit.svg" alt="Ir a Depositar." role="img"/>
-                                                </div>
-                                            </div>
-                                            <div class="text ml-2">Depositar</div>
-                                        </b-card>
-                                    </nuxt-link>
-                                </b-col>
-                                <b-col class="action-btn-col" cols="6" xl="3">
-                                    <nuxt-link to='/withdraw'>
-                                        <b-card class="action-btn">
-                                            <div class="d-flex justify-content-end mt-1 mr-2">
-                                                <div class="action-img d-flex justify-content-center align-items-center">
-                                                    <img class="img-size" src="/img/ewallet-withdraw.svg" alt="Ir a Retirar." role="img"/>
-                                                </div>
-                                            </div>
-                                            <div class="text ml-2">Retirar</div>
-                                        </b-card>
-                                    </nuxt-link>
-                                </b-col>
-                                <b-col class="action-btn-col" cols="6" xl="3">
-                                    <nuxt-link to='/buy'>
-                                        <b-card class="action-btn">
-                                            <div class="d-flex justify-content-end mt-1 mr-2">
-                                                <div class="action-img d-flex justify-content-center align-items-center">
-                                                    <img class="img-size" src="/img/ewallet-buy.svg" alt="Ir a comprar." role="img"/>
-                                                </div>
-                                            </div>
-                                            <div class="text ml-2">Comprar</div>
-                                        </b-card>
-                                    </nuxt-link>
-                                </b-col>
-                            </b-row>
-                            <b-row>
                                 <b-col cols="12">
                                     <b-card id="pieCharts-card">
                                         <div class="ml-3 balance-text">
-                                            <span>Resumen de Egresos</span>
-                                            <div style="width: 7%; "><hr style="border: 1px solid #3E3A35;"/></div>
+                                            <span>Control de Gastos</span>
                                         </div>
                                         <div class="pieCharts-parentDiv d-flex justify-content-around align-items-center">
                                             <div class="pieCharts-vForDiv" v-for="pieChart in pieCharts" @click="$router.push('/' + pieChart.ref)">
@@ -204,8 +165,7 @@
 
                         <b-card id="transactions-card" class="mt-4">
                             <div id="transactions-firstDiv">
-                                <div class="title-text">Últimos movimientos</div>
-                                <div style="width:12%;" class="horizontal-line"><hr style="border: 1px solid #3E3A35;"/></div>
+                                <div class="title-text mb-4">Últimas transacciones</div>
                                 <b-card-body v-if="transactions.length === 0 && !loading" class="no-transactions d-flex align-items-center justify-content-center">
                                     <div class="d-flex justify-content-center align-items-center">
                                         <b-card-text class="d-flex align-items-center justify-content-center">
@@ -228,29 +188,24 @@
                                                     <div class="d-flex align-items-center position-relative">
                                                         <img class="mr-3 transaction-icon" :src="data.item.transaction_status === 'Cancelado' || data.item.transaction_status === 'Rechazado' || data.item.transaction_status === 'Expirado' ? '/img/transactions/red.svg' : data.item.transaction_status === 'Exitoso' ? '/img/ewallet-successfulTransaction.svg' : '/img/ewallet-pendingTransaction.svg'" :alt="data.item.transaction_status === 'Cancelado' || data.item.transaction_status === 'Rechazado' || data.item.transaction_status === 'Expirado' ? 'Transacción no exitosa.' : data.item.transaction_status === 'Exitoso' ? 'Transacción exitosa.' : 'Transacción pendiente.'" role="img"/>
                                                     </div>
-                                                    <div class="transaction-title">{{data.item.transaction_type}}</div>
+                                                    <div>
+                                                        <div class="transaction-title">{{data.item.transaction_type}}</div>
+                                                        <div class="date d-flex align-items-center justify-content-start">
+                                                            {{data.item.transferDate_dashboard}}
+                                                        </div>
+                                                    </div>
+                                                    
                                                 </div>
                                             </b-col>
                                             <b-col cols="4">
-                                                <div class="date d-flex align-items-center justify-content-end">
-                                                    {{data.item.transferDate_dashboard}}
-                                                </div>
-                                            </b-col>
-                                        </b-row>
-                                        <b-row>
-                                            <b-col cols="12">
-                                                <span class="transaction-title d-flex justify-content-end" :class="data.item.amount.includes('-') ? 'amount-red' : 'amount-green'">{{data.item.amount}}</span>
+                                                <span class="transaction-title d-flex justify-content-start amount">{{data.item.amount}}</span>
                                             </b-col>
                                         </b-row>
                                     </template>
                                 </b-table>
                             </div>
                             <template #footer>
-                                <nuxt-link class="d-flex justify-content-center" to="/transactions" style="color:#3E3A35;"><em>Ver todos los movimientos 
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-right bold ml-2" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" fill="#8C4B1F"/>
-                                    </svg>
-                                </em></nuxt-link>
+                                <nuxt-link class="d-flex justify-content-center" to="/transactions" style="color:#3E3A35;"><em>Ver todos las transacciones</em></nuxt-link>
                             </template>
                         </b-card>
                     </b-card-group>
@@ -320,17 +275,24 @@ import { copyToClipboard } from '../utils/index'
         pieChartsLoading: true,
         pieCharts:[
             {
-                color: '#8C4B1F',
-                percentage: 100,
-                name: 'Retiros',
-                ref: 'withdraw',
-                amount: '...',
-            },
-            {
                 color: '#687F2E',
                 percentage: 100,
                 name: 'Transferencias',
                 ref: 'transfer',
+                amount: '...',
+            },
+            {
+                color: '#81D4FA',
+                percentage: 100,
+                name: 'Depósitos',
+                ref: 'deposit',
+                amount: '...',
+            },
+            {
+                color: '#8C4B1F',
+                percentage: 100,
+                name: 'Retiros',
+                ref: 'withdraw',
                 amount: '...',
             },
             {
@@ -379,17 +341,19 @@ import { copyToClipboard } from '../utils/index'
             (response) => {
                 if(response.status == "200")
                 {
+                    const transfers = response.data.transfers;
                     const deposits = response.data.deposits;
                     const withdraws = response.data.withdraws;
-                    const transfers = response.data.transfers;
-                    const purchases = response.data.purchases
+                    const purchases = response.data.purchases;
                     let total = deposits + withdraws + transfers + purchases;
-                    this.pieCharts[0].amount = withdraws;
-                    this.pieCharts[0].percentage = withdraws*100/total;
-                    this.pieCharts[1].amount = transfers;
-                    this.pieCharts[1].percentage = transfers*100/total;
-                    this.pieCharts[2].amount = purchases;
-                    this.pieCharts[2].percentage = purchases*100/total;
+                    this.pieCharts[0].amount = transfers;
+                    this.pieCharts[0].percentage = transfers*100/total;
+                    this.pieCharts[1].amount = deposits;
+                    this.pieCharts[1].percentage = deposits*100/total;
+                    this.pieCharts[2].amount = withdraws;
+                    this.pieCharts[2].percentage = withdraws*100/total;
+                    this.pieCharts[3].amount = purchases;
+                    this.pieCharts[3].percentage = purchases*100/total;
                     this.pieChartsLoading = false;
                 }
             });
@@ -623,7 +587,6 @@ html { min-height: 100%; }
 
         #account-balance-card{
             height: 270px;;
-            border-radius:10px 0px 0px 10px;
             border-color: transparent;
             box-shadow: 2px 2px 29px rgba(0, 0, 0, 0.08);
             background: #D7C1AA;
@@ -730,7 +693,6 @@ html { min-height: 100%; }
             height: 270px;
             border-color: transparent;
             box-shadow: 2px 2px 29px 0px rgba(0, 0, 0, 0.08);
-            border-radius: 0px 10px 10px 0px;
             background: #D7C1AA;
             .card-body{
                 display: flex;
@@ -758,7 +720,6 @@ html { min-height: 100%; }
             max-width: 270px;
             border-color: transparent;
             box-shadow: 2px 2px 29px 0px rgba(0, 0, 0, 0.08);
-            border-radius: 0px 10px 10px 0px;
             background: #D7C1AA;
             .card-body{
                 display: flex;
@@ -864,11 +825,10 @@ html { min-height: 100%; }
             display: grid;
             width:21rem;
             .personal-info-card{
-                border-radius: 10px;
                 background: #D7C1AA;
                 box-shadow: 2px 2px 29px 0px rgba(0, 0, 0, 0.08);
                 width: 100%;
-                height: 128px;
+                height: 270px;
                 border-color: transparent;
                 .ewalletId-background{
                     width: 46px;
@@ -880,15 +840,19 @@ html { min-height: 100%; }
                         height: 17.87px;
                     }
                 }
+                .card-image{
+                    max-height: 46px;
+                    min-height: 46px;
+                }
                 .profile-picture-div{
                     display: inline-flex;
                     justify-content: center;
-                    align-items: center;
+                    align-items: start;
                     align-self: center;
                     min-width: 46px;
                     min-height: 46px;
-                    width: 46px;
-                    height: 46px;
+                    width: 69px;
+                    height: 69px;
                     text-align: center;
                     border-radius: 50%;
                     border:1px solid #8C4B1F;
@@ -896,8 +860,8 @@ html { min-height: 100%; }
                     .b-avatar{
                         min-width: 46px;
                         min-height: 46px;
-                        width: 46px;
-                        height: 46px;
+                        width: 69px;
+                        height: 69px;
                         background: #8C4B1F;
                     }
                 }
@@ -927,6 +891,9 @@ html { min-height: 100%; }
                             &:focus {
                                 border-radius: 0;
                                 //box-shadow: none;
+                            }
+                            .copyToClipboard{
+                                filter: brightness(0) saturate(100%) invert(29%) sepia(8%) saturate(5524%) hue-rotate(344deg) brightness(102%) contrast(85%);
                             }
                         }
                     }
@@ -962,6 +929,7 @@ html { min-height: 100%; }
         min-width: 1200px;
         margin-bottom: 5%;
     }
+
     #action-btns-card{
         flex-grow: 2;
         height: 150px;
@@ -972,12 +940,12 @@ html { min-height: 100%; }
         }
         .card-body {
             padding: 24px 0;
+            height: 64px;
 
             .action-btn{
                 height: 64px;
                 width: 100%;
                 box-shadow: 4px 4px 10px 0px rgba(196, 196, 196, 0.60);
-                border-radius: 10px;
                 border-color: transparent;
                 background: #D7C1AA;
                 .text{
@@ -996,78 +964,28 @@ html { min-height: 100%; }
                     }
                 }                
             }
-            .action-btn-col:first-of-type{
-                .action-btn{
-                    --background-hover: var(--transfer);
-                    .action-img{
-                        background-color: #D8E8A8;
-                        img{
-                           filter: brightness(0) saturate(100%) invert(22%) sepia(86%) saturate(392%) hue-rotate(40deg) brightness(97%) contrast(87%);
-                        }
-                    }
-                }
-            }
-            .action-btn-col:nth-of-type(2){
-                .action-btn{
-                    --background-hover: var(--deposit);
-                    .action-img{
-                        background-color: #D6F1FB;
-                        img{
-                            filter: brightness(0) saturate(100%) invert(17%) sepia(27%) saturate(3492%) hue-rotate(179deg) brightness(95%) contrast(93%);
-                        }
-                    }
-                }
-            }
-            .action-btn-col:nth-of-type(3){
-                .action-btn{
-                    --background-hover: var(--withdraw);
-                    .action-img{
-                        background-color: #DAB49D;
-                        img{
-                            filter: brightness(0) saturate(100%) invert(20%) sepia(13%) saturate(2934%) hue-rotate(341deg) brightness(92%) contrast(92%);
-                        }
-                    }
-                }
-            }
-            .action-btn-col:nth-of-type(4){
-                .action-btn{
-                    --background-hover: var(--comprar);
-                    .action-img{
-                        background-color: #FFF0B3;
-                        img{
-                            filter: brightness(0) saturate(100%) invert(36%) sepia(15%) saturate(3235%) hue-rotate(4deg) brightness(99%) contrast(84%);
-                        }
-                    }
-                }
-            }
-            .action-btn:hover, .action-btn:focus{
-                background: var(--background-hover);
-                .text{
-                    color:#FFF
-                }
-                
-            }
         }
         #pieCharts-card{
             width: 100%;
-            height: auto;
-            margin-top: 30px;
+            height: 331px;
+            margin-bottom: 30px;
             box-shadow: 4px 4px 10px 0px rgba(196, 196, 196, 0.60);
-            border-radius: 10px;
             border-color: transparent;
             background: #D7C1AA;
             .card-body{
                 padding: 24px 20px;
+                height: 100%;
             }
             .balance-text{
                 font-weight: 700;
                 font-size: 20px;
                 line-height: 24px;
+                margin-bottom: 2.3rem;
             }
             .pieCharts-parentDiv{
                 margin-left: 46.18px;
                 margin-right: 46.18px;
-                margin-top: -5px;
+                margin-top: -35px;
                 height: 100%;
                 .pieCharts-vForDiv{
                     width: 25%;
@@ -1170,7 +1088,6 @@ html { min-height: 100%; }
         height: 331px;
         background: #D7C1AA;
         box-shadow: 2px 2px 29px rgba(0, 0, 0, 0.08);
-        border-radius: 10px;
         border-color:transparent;
 
         #transactions-firstDiv{
@@ -1200,18 +1117,14 @@ html { min-height: 100%; }
             font-weight: 400;
             font-size: 14px;
         }
+        .amount{
+            color: #8C4B1F;
+            font-weight: 700;
+        }
         .transaction-icon{
             width: 25px;
             height: 25px;
             filter: brightness(0) saturate(100%) invert(26%) sepia(10%) saturate(6154%) hue-rotate(352deg) brightness(107%) contrast(81%);
-        }
-
-        .amount-red{
-            color: #C72121;
-        }
-
-        .amount-green{
-            color: #3E3A35;
         }
         .date{
             font-family: 'Helvetica Neue';
@@ -1219,7 +1132,6 @@ html { min-height: 100%; }
             font-weight: 500;
             font-size: 14px;
             line-height: 16.93px;
-            color: #8C4B1F;
             height: 100%;
         }
         .table {
@@ -1229,7 +1141,6 @@ html { min-height: 100%; }
         .card-footer {
             background: #D7C1AA;
             box-shadow: 2px 2px 29px rgba(0, 0, 0, 0.08);
-            border-radius: 0px 0px 10px 10px;
             border-color: transparent;
             em{
                 font-weight: 400;
@@ -1314,7 +1225,7 @@ html { min-height: 100%; }
         }
         .responsive-col{
             display: block!important;
-            margin-top: 8.5rem!important;
+            margin-top: 11rem!important;
             #dashboard-second-cardGroup{
                 max-width: auto;
                 min-width: auto;
@@ -1325,65 +1236,7 @@ html { min-height: 100%; }
             margin-top: 30px;
             margin-bottom: 20px;
             height: 100%;
-            .action-btn-col{
-                padding: 0px;
-                .action-btn{
-                    width: 100%;
-                    margin-top: 0px;
-                    height: 124px;
-                    div{
-                        .action-img{
-                            height: 50px;
-                            width: 50px;
-                            .img-size{
-                                height: 30px;
-                            }
-                        }
-                    }
-                    .text{
-                        font-size: 25px;
-                        padding-left: 1.2rem;
-                        padding-top: 0.7rem;
-                    }
-                }
-            }
-            .action-btn-col:first-of-type{
-                //Deposit
-                padding-left: 20px;
-                padding-right: 20px;
-                margin-bottom: 40px;
-                margin-left: 250px;
-            }
-            .action-btn-col:nth-of-type(2){
-                //comprar
-                padding-right: 20px;
-                padding-left: 20px;
-                margin-bottom: 40px;
-            }
-            .action-btn-col:nth-of-type(3){
-                //Withdraw
-                padding-left: 20px;
-                padding-right: 20px;
-                margin-left: 250px;
-                margin-bottom: 40px;
-                .action-btn{
-                    div{
-                        .action-img{
-                            .img-size{
-                                height: 26.25px;
-                            }
-                        }
-                    }
-                }
-            }
-            .action-btn-col:nth-of-type(4){
-                //Pay
-                padding-right: 20px;
-                padding-left: 20px;
-            }
-            #pieCharts-card{
-                display: none;
-            }
+            display: none;
         }
         #contacts-card{
             display: contents;
@@ -1560,64 +1413,6 @@ html { min-height: 100%; }
             }
         }
     }
-    @media screen and (max-width:1199px) {
-        #action-btns-card{
-            .action-btn-col:first-of-type{
-                //Deposit
-                padding-left: 85px;
-                margin-left: 0px;
-            }
-            .action-btn-col:nth-of-type(2){
-                //comprar
-                padding-right: 85px;
-            }
-            .action-btn-col:nth-of-type(3){
-                //Withdraw
-                padding-left: 85px;
-                margin-left: 0px;
-                margin-bottom: 0px;
-            }
-            .action-btn-col:nth-of-type(4){
-                //Pay
-                padding-right: 85px;
-            }
-        }
-    }
-    @media screen and (max-width:850px) {
-    //iPad Air & iPad Mini
-        #action-btns-card{
-            .action-btn-col{
-                .action-btn{
-                    height: 104px;
-                    div{
-                        .action-img{
-                            height: 40px;
-                            width: 40px;
-                            .img-size{
-                                height: 24px;
-                            }
-                        }
-                    }
-                    .text{
-                        font-size: 20px;
-                        padding-top: 0.7rem;
-                    }
-                }
-            }
-            .action-btn-col:nth-of-type(3){
-                //Withdraw
-                .action-btn{
-                    div{
-                        .action-img{
-                            .img-size{
-                                height: 21px;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
     @media only screen and (max-width: 768px) {
         #transactions-card{
             height: auto;
@@ -1636,59 +1431,6 @@ html { min-height: 100%; }
         #action-btns-card{
             margin-top: 25px;
             margin-bottom: 10px;
-            .action-btn-col{
-                .action-btn{
-                    height: 64px;
-                    .card-body{
-                        min-height: 64px;
-                    }
-                    div{
-                        .action-img{
-                            height: 25px;
-                            width: 25px;
-                            .img-size{
-                                height: auto;
-                            }
-                        }
-                    }
-                    .text{
-                        font-size: 16px;
-                        padding-left: 0.7rem;
-                        padding-top: 0px;
-                    }
-                }
-            }
-            .action-btn-col:first-of-type{
-                //Deposit
-                padding-left: 35px;
-                padding-right: 10px;
-                margin-bottom: 20px;
-            }
-            .action-btn-col:nth-of-type(2){
-                //Withdraw
-                padding-right: 35px;
-                padding-left: 10px;
-                margin-bottom: 20px;
-            }
-            .action-btn-col:nth-of-type(3){
-                //Transfer
-                padding-left: 35px;
-                padding-right: 10px;
-                .action-btn{
-                    div{
-                        .action-img{
-                            .img-size{
-                                height: auto;
-                            }
-                        }
-                    }
-                }
-            }
-            .action-btn-col:nth-of-type(4){
-                //Pay
-                padding-right: 35px;
-                padding-left: 10px;
-            }
         }
         #contacts-card{
             .sendMoney-group{
@@ -1759,10 +1501,6 @@ html { min-height: 100%; }
         #action-btns-card{
             margin-top: 5px;
             margin-bottom: 0px;
-            .action-btn-col:first-of-type, .action-btn-col:nth-of-type(2){
-                //Deposit
-                margin-bottom: 15px;
-            }
         }
     }
     @media only screen and (max-width: 400px) {

@@ -42,34 +42,27 @@
                 <div class="ml-4 mx-auto">
                     <div class="title-text mx-auto text-center">Balance</div>
                     <div class="balance-text mx-auto text-center mt-1"><b-spinner style="height:25px; width:25px;" v-if="loading"></b-spinner> {{balance}}</div>
-                    <div v-if="this.$route.path == '/dashboard'" class="balance-text level-text mx-auto text-center mt-1">Nivel {{$store.state.auth.user.kyc}}</div>
-                    <div v-if="this.$route.path == '/dashboard'" class="mt-2" @click="$router.push('/transactions')">
+                    <div v-if="this.$route.path == '/dashboard'" class="mt-4">
                       <div class="d-flex justify-content-center align-items-center accounting-rectangleGreen-parent">
                           <div class="accounting-rectangle accounting-rectangleGreen d-flex justify-content-center align-items-center">
-                              <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M6.94119 15.9921C6.93686 16.5444 7.38104 16.9956 7.93331 17C8.48558 17.0043 8.9368 16.5601 8.94113 16.0079L6.94119 15.9921ZM8.77156 0.298928C8.38412 -0.0946499 7.75097 -0.0996209 7.35739 0.287825L0.943666 6.60163C0.550088 6.98907 0.545117 7.62222 0.932563 8.0158C1.32001 8.40937 1.95315 8.41435 2.34673 8.0269L8.04783 2.41463L13.6601 8.11572C14.0475 8.5093 14.6807 8.51427 15.0743 8.12683C15.4678 7.73938 15.4728 7.10624 15.0854 6.71266L8.77156 0.298928ZM8.94113 16.0079L9.0589 1.00831L7.05896 0.992611L6.94119 15.9921L8.94113 16.0079Z" fill="#687F2E"/>
-                              </svg>
+                              <img class="card-image mr-3" src="/img/ewallet-debitCard.svg" alt="Debit card icon">
                           </div>
                           <div>
-                              <div class="accounting-amount" :class="income === '...' ? 'loading-amount' : setAmountClass(income)">
-                                  <div ref="dashboardIncome" v-if="income !== '...'" :style="'min-width: ' + this.accountingMinWidth + 'px'">{{ formatAmount(income) }}</div>
-                                  <span v-else class="dot-flashing"></span>
+                              <div class="accounting-text">Débito</div>
+                              <div class="accounting-amount">
+                                 {{ewalletUser.debit_card}}
                               </div>
-                              <div class="accounting-text">Ingresos</div>
                           </div>
                       </div>
                       <div class="d-flex justify-content-center align-items-center">
                           <div class="accounting-rectangle accounting-rectangleRed d-flex justify-content-center align-items-center">
-                              <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M9 1C9 0.447715 8.55228 3.69217e-08 8 0C7.44772 -3.69217e-08 7 0.447715 7 1L9 1ZM7.29289 16.7071C7.68342 17.0976 8.31658 17.0976 8.70711 16.7071L15.0711 10.3431C15.4616 9.95262 15.4616 9.31946 15.0711 8.92893C14.6805 8.53841 14.0474 8.53841 13.6569 8.92893L8 14.5858L2.34315 8.92893C1.95262 8.53841 1.31946 8.53841 0.928932 8.92893C0.538407 9.31946 0.538407 9.95262 0.928932 10.3431L7.29289 16.7071ZM7 1L7 16L9 16L9 1L7 1Z" fill="#8C4B1F"/>
-                              </svg>
+                              <img class="card-image mr-3" src="/img/ewallet-creditCard.svg" alt="Credit card icon">
                           </div>
                           <div>
-                              <div class="accounting-amount" :class="outcome === '...' ? 'loading-amount' : setAmountClass(outcome)">
-                                  <div ref="dashboardOutcome" v-if="outcome !== '...'" :style="'min-width: ' + this.accountingMinWidth + 'px'">{{ formatAmount(outcome) }}</div>
-                                  <span v-else class="dot-flashing"></span>
+                              <div class="accounting-text">Crédito</div>
+                              <div class="accounting-amount">
+                                 {{ewalletUser.credit_card}}
                               </div>
-                              <div class="accounting-text">Egresos</div>
                           </div>
                       </div>
                     </div>
@@ -139,45 +132,8 @@ export default {
           }
       });
     },
-    updateAccounting(){
-      this.$axios.get("/accounting").then(
-      (response) => {
-          if(response.status == "200")
-          {
-              this.income = response.data.income;
-              this.outcome = response.data.outcome;
-          }
-      });
-    },
     formatAmount(amount){
         return '$' + Number(parseFloat(amount).toFixed(2)).toLocaleString('en-US', {minimumFractionDigits: 2,maximumFractionDigits: 2});
-    },
-    setAmountClass(amount){
-      switch(amount.toString().length){
-          case 8:
-              return 'amount-medium'
-          case 9: 
-              return 'amount-medium'
-          case 10: 
-              return 'amount-medium'
-          case 11:
-              return 'amount-small'
-          case 12: 
-              return 'amount-small'
-          case 13: 
-              return 'amount-xsmall'
-          case 14: 
-              return 'amount-xsmall'
-      }
-    },
-    setAccountingWidths(incomeWidth,outcomeWidth){
-        if(incomeWidth !== outcomeWidth){
-            if(incomeWidth > outcomeWidth){
-                this.accountingMinWidth = incomeWidth;
-            }else{
-                this.accountingMinWidth = outcomeWidth;
-            }
-        }
     },
     redefineTooltip() {
         /* Need the setTimeout to compensate the tolltip fade out */
@@ -215,12 +171,8 @@ export default {
       }
     };
     this.updateBalance(true);
-    this.updateAccounting();
     if(window.screen.width <= 1205){
       setInterval(() => this.updateBalance(false), 9000);
-      if(this.$route === '/dashboard'){
-        this.accountingInterval = setInterval(() => this.updateAccounting(), 9000);
-      }
     }
     switch(this.ewalletUser.gender){
       case 2: 
@@ -241,11 +193,6 @@ export default {
       '/dashboard': this.welcomeMessage,
       '/transfer':'Transferir',
     };
-  },
-  updated(){
-      if(this.$refs.dashboardIncome && this.$refs.dashboardOutcome){
-          this.setAccountingWidths(this.$refs.dashboardIncome.getBoundingClientRect().width, this.$refs.dashboardOutcome.getBoundingClientRect().width);
-      }
   },
 }
 </script>
@@ -382,7 +329,6 @@ export default {
         .balance-card{
             width: 44.5rem;
             margin-top:2%;
-            border-radius: 25px;
             background-color: #FAF6F0;
             border:transparent;
             box-shadow: 4px 4px 10px 0px rgba(196, 196, 196, 0.60);
@@ -405,15 +351,12 @@ export default {
                 height: 41px;
                 border-radius: 8px;
                 margin-right: 15px;
-            }
-            .accounting-rectangleGreen{
-                background-color: #687F2E50;
+                img{
+                  max-height: 41px;
+                }
             }
             .accounting-rectangleGreen-parent{
                 margin-bottom: 20px;
-            }
-            .accounting-rectangleRed{
-                background-color: #8C4B1F26;
             }
             .accounting-amount{
                 font-family: 'Poppins', sans-serif;
