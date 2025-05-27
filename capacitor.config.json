@@ -1,0 +1,6 @@
+{
+    "appId": "com.ewalletapp.app",
+    "appName": "ewallet",
+    "webDir": "dist",
+    "bundledWebRuntime": false
+}
