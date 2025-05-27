@@ -1353,7 +1353,7 @@ html { min-height: 100%; }
                 width: 35px;
                 height: 35px;
             }
-            .title-text, .transaction-title{
+            .title-text{
                 color: #3E3A35;
             }
             .title-text{
