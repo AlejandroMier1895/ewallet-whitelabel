@@ -1,7 +1,9 @@
 export default {
     target: 'static',
     ssr: false, // Disable Server Side rendering
-
+    router: {
+        base: '/ewallet-whitelabel/' // 👈 usa el nombre real
+    },
     // Global page headers: https://go.nuxtjs.dev/config-head
     head: {
         title: 'E-wallet',
