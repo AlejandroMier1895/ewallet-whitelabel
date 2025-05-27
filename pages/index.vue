@@ -24,9 +24,9 @@
           Para iniciar sesión, ingresa los datos que se te solicitan
         </div>
 
-        <label for="email">E-wallet ID o Correo Electrónico de usuario</label>
+        <label for="email">Nombre de usuario</label>
         <b-form-input id="email" type="text" v-model="login.username"
-          placeholder="Correo electrónico o E-wallet ID" required></b-form-input>
+          placeholder="Nombre de usuario" required></b-form-input>
 
         <label for="password">Contraseña</label>
         <div class="position-relative">

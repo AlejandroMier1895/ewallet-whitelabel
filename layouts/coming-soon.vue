@@ -34,6 +34,7 @@
     background: linear-gradient(180deg, #81D4FA, #B3E5FC);
     padding-top: 5vh;
     .comingSoon-img{
+        min-height: 60vh;
         img{
             max-height: 60vh;
             max-width: 80vw;
