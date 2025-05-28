@@ -75,7 +75,7 @@ export default function({ $axios }) {
                     date_of_birth: "1995-01-18",
                     create_date: "2024-10-07T13:54:44.168273-05:00",
                     name: "Alejandro",
-                    profile_picture: "/img/ewallet-profilePicture.png",
+                    profile_picture: "ewallet-profilePicture.png",
                     paternal_surname: "Mier",
                     maternal_surname: "Fernández",
                     twofactor: false,
@@ -97,7 +97,7 @@ export default function({ $axios }) {
         const ewallet_id = Math.floor(1000000000 + Math.random() * 9000000000).toString();
         const email = `${nickname.toLowerCase()}@ewallet.com`;
         const phone = Math.floor(1000 + Math.random() * 9000000).toString();
-        const profile_picture = `/img/ewallet-unknown-profilePicture.png`;
+        const profile_picture = "ewallet-unknown-profilePicture.png";
         const max_amount = 50000;
 
         const newContact = {
@@ -155,7 +155,8 @@ export default function({ $axios }) {
             contact_user_email: "sofia@ewallet.com",
             nickname: "Sofy",
             phone: "1234",
-            profile_picture: "/img/ewallet-sofy-profilePicture.png",
+            profile_picture: "ewallet-sofy-profilePicture.png",
+
             max_amount: 50000
         },
         {
@@ -164,7 +165,7 @@ export default function({ $axios }) {
             contact_user_email: "Roberto@ewallet.com",
             nickname: "Robert",
             phone: "12345",
-            profile_picture: "/img/ewallet-robert-profilePicture.png",
+            profile_picture: "ewallet-robert-profilePicture.png",
             max_amount: 50000
         },
         {
@@ -173,7 +174,7 @@ export default function({ $axios }) {
             contact_user_email: "Vanessa@ewallet.com",
             nickname: "Vane",
             phone: "123456",
-            profile_picture: "/img/ewallet-vane-profilePicture.png",
+            profile_picture: "ewallet-vane-profilePicture.png",
             max_amount: 50000
         },
         {
@@ -182,7 +183,7 @@ export default function({ $axios }) {
             contact_user_email: "Carlos@ewallet.com",
             nickname: "Charly",
             phone: "1234567",
-            profile_picture: "/img/ewallet-charly-profilePicture.png",
+            profile_picture: "ewallet-charly-profilePicture.png",
             max_amount: 50000
         },
     ];

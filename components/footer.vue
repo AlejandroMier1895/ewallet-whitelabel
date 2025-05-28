@@ -6,7 +6,7 @@
           <nuxt-link to="/dashboard">
             <div :class="[this.$route.path == '/dashboard' ? 'active-page' : '']">
               <div class="d-flex justify-content-center">
-                <img src="/img/ewallet-home.svg" class="icon-color" alt="Ir a inicio." role="img"/>
+                <img :src="`${$router.options.base}img/ewallet-home.svg`" class="icon-color" alt="Ir a inicio." role="img"/>
               </div>
               <div class="d-flex justify-content-center">
                 <div class="menu-titles"> Resumen</div>
@@ -19,7 +19,7 @@
           <nuxt-link to="/deposit">
             <div :class="[this.$route.path == '/deposit' ? 'active-page' : '']">
               <div class="d-flex justify-content-center">
-              <img class="icon-color" src="/img/ewallet-deposit.svg" alt="Ir a Fondear." role="img">
+              <img class="icon-color" :src="`${$router.options.base}img/ewallet-deposit.svg`" alt="Ir a Fondear." role="img">
               </div>
               <div class="d-flex justify-content-center">
               <div class="menu-titles">Depositar</div>
@@ -32,7 +32,7 @@
           <nuxt-link to="/transfer">
             <div :class="[this.$route.path == '/transfer' ? 'active-page' : '']">
               <div class="d-flex justify-content-center">
-              <img class="icon-color" src="/img/ewallet-transfer.svg" alt="Ir a Transferir." role="img">
+              <img class="icon-color" :src="`${$router.options.base}img/ewallet-transfer.svg`" alt="Ir a Transferir." role="img">
               </div>
               <div class="d-flex justify-content-center">
               <div class="menu-titles">Transferir</div>
@@ -45,7 +45,7 @@
           <nuxt-link to="/buy">
             <div :class="[this.$route.path == '/buy' ? 'active-page' : '']">
               <div class="d-flex justify-content-center">
-              <img class="icon-color" src="/img/ewallet-buy.svg" alt="Ir a Comprar." role="img">
+              <img class="icon-color" :src="`${$router.options.base}img/ewallet-buy.svg`"  alt="Ir a Comprar." role="img">
               </div>
               <div class="d-flex justify-content-center">
               <div class="menu-titles">Comprar</div>
@@ -58,7 +58,7 @@
           <nuxt-link to="/withdraw">
             <div :class="[this.$route.path == '/withdraw' ? 'active-page' : '']">
               <div class="d-flex justify-content-center">
-              <img class="icon-color" src="/img/ewallet-withdraw.svg" alt="Ir a Retirar." role="img">
+              <img class="icon-color" :src="`${$router.options.base}img/ewallet-withdraw.svg`" alt="Ir a Retirar." role="img">
               </div>
               <div class="d-flex justify-content-center">
               <div class="menu-titles">Retirar</div>

@@ -11,7 +11,7 @@
             <!-- Using 'button-content' slot -->
             <template #button-content>
               <div class="profile-picture-div">
-                <b-avatar :src="profilePicture"></b-avatar>
+                <b-avatar :src="`${$router.options.base}img/${profilePicture}`"></b-avatar>
               </div>
               <span class="account-name d-flex justify-content-center align-items-center px-2" ref="account-name-span">{{account_name}}</span>
               <img style="width: 17px;" src="../static/img/icon-caretThin-down.svg" alt="Abrir menú desplegable para cerrar sesión." role="img"/>

@@ -45,7 +45,7 @@
                                             <b-list-group-item v-for="contact in filteredContacts" :key="contact.email"
                                                 class="contacts-item align-items-center pl-0 pr-0">
                                                 <div @click="selectContact(contact)" class="contact--icon">
-                                                    <b-avatar class="mr-3 avatar" :src="contact.profile_picture"/>
+                                                    <b-avatar class="mr-3 avatar" :src="`${$router.options.base}img/${contact.profile_picture}`"/>
                                                 </div>
                                                 <div tabindex="0" @keyup.enter="selectContact(contact)" @click="selectContact(contact)" class="contact--info">
                                                     <div class="contact--name addContact-txt">{{ contactNicknameFormatter(contact.nickname) }}</div>

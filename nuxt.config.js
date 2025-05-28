@@ -1,5 +1,10 @@
 export default {
+    target: 'static',
     ssr: false, // Disable Server Side rendering
+
+    router: {
+        base: process.env.NODE_ENV === 'production' ? '/ewallet-whitelabel/' : '/'
+    },
 
     // Global page headers: https://go.nuxtjs.dev/config-head
     head: {

@@ -60,7 +60,7 @@
                                     <div>
                                         <div class="d-flex justify-content-start align-items-center mb-3">
                                             <div class="profile-picture-div mr-3">
-                                                <b-avatar :src="profilePicture"></b-avatar>
+                                                <b-avatar :src="`${$router.options.base}img/${profilePicture}`"></b-avatar>
                                             </div>
                                             <div class="account-info">
                                                 <div class="description">
