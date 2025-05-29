@@ -3,7 +3,7 @@ export default {
     ssr: false, // Disable Server Side rendering
 
     router: {
-        base: process.env.ASSET_BASE_URL
+        base: process.env.NUXT_ENV_ROUTER_BASE || '/'
     },
 
     // Global page headers: https://go.nuxtjs.dev/config-head
