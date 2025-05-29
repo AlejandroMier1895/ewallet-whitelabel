@@ -4,7 +4,7 @@
         <div id="screenshotSuccess" class="pt-4 pb-5">
             <div class="mb-4">
                 <div  class="d-flex justify-content-center">
-                    <img class="mr-3" id="transaction-finished" src="/img/ewallet-transactionFinished.svg" alt="Ícono de transacción exitosa." role="img"/>
+                    <img class="mr-3" id="transaction-finished" :src="`${$router.options.base}img/ewallet-transactionFinished.svg`" alt="Ícono de transacción exitosa." role="img"/>
                 </div>
                 <div class="title d-flex justify-content-center mt-3">¡TRANSACCIÓN<span>&nbsp; EXITOSA</span>!</div>
                 <div class="date d-flex justify-content-center mt-1">{{transaction.date}}</div>
@@ -27,7 +27,7 @@
             
             </div>
         </div>
-        <div id="shareIcon" class="d-flex justify-content-center" @click="shareTransaction()"><span class="mr-3 mb-3 mt-1 text"> Compartir</span> <img style="width: 30px; height: 30px;" class="mr-3" src="/img/ewallet-compartir.svg" alt="Compartir Transacción."/></div>
+        <div id="shareIcon" class="d-flex justify-content-center" @click="shareTransaction()"><span class="mr-3 mb-3 mt-1 text"> Compartir</span> <img style="width: 30px; height: 30px;" class="mr-3" :src="`${$router.options.base}img/ewallet-compartir.svg`" alt="Compartir Transacción."/></div>
         <div class="d-flex justify-content-center mt-4 mb-4">
             <b-button @click="$bvModal.hide('succesfullTransactionModal');" id="action-button">Regresar</b-button>
         </div>

@@ -47,7 +47,6 @@ export default {
         // https://go.nuxtjs.dev/bootstrap
         'bootstrap-vue/nuxt',
         '@nuxtjs/axios',
-        ...(process.env.NODE_ENV === 'development' ? [] : ['@nuxtjs/auth-next']),
     ],
 
     auth: {

@@ -2,7 +2,7 @@
     <div id="comingSoon-page" class="d-flex justify-content-center align-items-center">
         <div>
             <div class="d-flex justify-content-center comingSoon-img">
-                <img rel="preload" src="/img/ewallet-comingSoon.svg" alt="Equipo de construcción preparando esta página." role="img"/>
+                <img rel="preload" :src="`${$router.options.base}img/ewallet-comingSoon.svg`" alt="Equipo de construcción preparando esta página." role="img"/>
             </div>
             <div class="d-flex justify-content-center comingSoon-message">Pronto estará listo para ti</div>
             <div class="d-flex justify-content-center">

@@ -4,7 +4,7 @@
             <b-row>
                 <b-col cols="3" md="2">
                     <div v-show="profilePicture !== null && profilePictureLoading === false" class="profile-picture-div">
-                        <img :class="setProfilePictureClass()" @load="profilePictureLoading = false" :src="profilePicture" alt="Ir a Mi Cuenta."/>
+                        <img :class="setProfilePictureClass()" @load="profilePictureLoading = false" :src="`${$router.options.base}img/${profilePicture}`" alt="Ir a Mi Cuenta."/>
                     </div>
                 </b-col>
                 <b-col cols="9" md="10">
@@ -13,7 +13,7 @@
                         <div>{{$store.state.auth.user.ewallet_id}}</div>
                         <span class="ml-3">
                             <button class="btn copy-btn" type="button" @click="copy($store.state.auth.user.ewallet_id)" v-b-tooltip.hover :title="tooltipMessage" @mouseleave="redefineTooltip">
-                                <img class="copyToClipboard" src="../../static/img/ewallet-copyToClipboard.svg" alt="Copiar ewalletID." role="img"/>
+                                <img class="copyToClipboard" :src="`${$router.options.base}img/ewallet-copyToClipboard.svg`" alt="Copiar ewalletID." role="img"/>
                             </button>
                         </span>
                     </div>
@@ -23,47 +23,47 @@
       <b-container  fluid class="mt-4 menu">
             <b-row @click="()=>{$router.push('/dashboard'); $bvModal.hide('internalMenuModal')}">
                 <b-col cols="10">
-                    <img class="icon-size icon-color" src="/img/ewallet-home.svg" alt="Ir a inicio." role="img"> 
+                    <img class="icon-size icon-color" :src="`${$router.options.base}img/ewallet-home.svg`" alt="Ir a inicio." role="img"> 
                     <span class="title ml-3">Resumen</span>
                 </b-col>
                 <b-col cols="2" class="d-flex justify-content-end">
-                    <img  class="icon-arrow" src="/img/ewallet-arrow.svg" alt="" role="img">
+                    <img  class="icon-arrow" :src="`${$router.options.base}img/ewallet-arrow.svg`"alt="" role="img">
                 </b-col>
             </b-row>
             <b-row class="mt-4" @click="()=>{$router.push('/deposit'); $bvModal.hide('internalMenuModal')}">
                 <b-col cols="10">
-                    <img class="icon-size icon-color" src="/img/ewallet-deposit.svg" alt="Ir a Depositar." role="img"/>
+                    <img class="icon-size icon-color" :src="`${$router.options.base}img/ewallet-deposit.svg`" alt="Ir a Depositar." role="img"/>
                     <span class="title ml-3">Depositar</span>
                 </b-col>
                 <b-col cols="2" class="d-flex justify-content-end">
-                    <img  class="icon-arrow" src="/img/ewallet-arrow.svg" alt="Ir a Depositar." role="img"/>
+                    <img  class="icon-arrow" :src="`${$router.options.base}img/ewallet-arrow.svg`" alt="Ir a Depositar." role="img"/>
                 </b-col>
             </b-row>
             <b-row class="mt-4" @click="()=>{$router.push('/transfer'); $bvModal.hide('internalMenuModal')}">
                 <b-col cols="10">
-                    <img class="icon-size icon-color" src="/img/ewallet-transfer.svg" alt="Ir a Transferir." role="img"/>
+                    <img class="icon-size icon-color" :src="`${$router.options.base}img/ewallet-transfer.svg`" alt="Ir a Transferir." role="img"/>
                     <span class="title ml-3">Transferir</span>
                 </b-col>
                 <b-col cols="2" class="d-flex justify-content-end">
-                    <img  class="icon-arrow" src="/img/ewallet-arrow.svg" alt="Ir a Transferir." role="img"/>
+                    <img  class="icon-arrow" :src="`${$router.options.base}img/ewallet-arrow.svg`" alt="Ir a Transferir." role="img"/>
                 </b-col>
             </b-row>
             <b-row class="mt-4" @click="()=>{$router.push('/withdraw'); $bvModal.hide('internalMenuModal')}">
                 <b-col cols="10">
-                    <img class="icon-size icon-color" src="/img/ewallet-withdraw.svg" alt="Ir a Retirar." role="img"/>
+                    <img class="icon-size icon-color" :src="`${$router.options.base}img/ewallet-withdraw.svg`" alt="Ir a Retirar." role="img"/>
                     <span class="title ml-3">Retirar</span>
                 </b-col>
                 <b-col cols="2" class="d-flex justify-content-end">
-                    <img  class="icon-arrow" src="/img/ewallet-arrow.svg" alt="Ir a Retirar." role="img"/>
+                    <img  class="icon-arrow" :src="`${$router.options.base}img/ewallet-arrow.svg`" alt="Ir a Retirar." role="img"/>
                 </b-col>
             </b-row>
             <b-row class="mt-4" @click="()=>{$router.push('/buy'); $bvModal.hide('internalMenuModal')}">
                 <b-col cols="10">
-                    <img class="icon-size icon-color" src="/img/ewallet-buy.svg" alt="Ir a Comprar." role="img"/>
+                    <img class="icon-size icon-color" :src="`${$router.options.base}img/ewallet-buy.svg`" alt="Ir a Comprar." role="img"/>
                     <span class="title ml-3">Comprar</span>
                 </b-col>
                 <b-col cols="2" class="d-flex justify-content-end">
-                    <img  class="icon-arrow" src="/img/ewallet-arrow.svg" alt="Ir a Comprar." role="img"/>
+                    <img  class="icon-arrow" :src="`${$router.options.base}img/ewallet-arrow.svg`" alt="Ir a Comprar." role="img"/>
                 </b-col>
             </b-row>
             <div class="mt-5 mb-4 d-flex justify-content-center">
@@ -76,53 +76,54 @@
 <script>
 import { copyToClipboard } from '../../utils/index'
 export default {
-  name:'internalMenuModal',
-  data() {
-    return {
-        tooltipMessage: 'Haz clic para copiar',
-        profilePicture: null,
-        profilePictureLoading: true,
-    }
-  },
-  methods:{
-    open() {
-        this.$bvModal.show('internalMenuModal');
-    },
-    logout(){
-        this.$emit('logout')
-    },
-    redefineTooltip() {
-        /* Need the setTimeout to compensate the tolltip fade out */
-        setTimeout(() => {
-            this.tooltipMessage = 'Haz clic para copiar';
-        }, 300)
-    },
-    async copy(message) {
-        try {
-            await copyToClipboard(message);
-            this.tooltipMessage = "¡Copiado!";
-        } catch(e) {
-            this.tooltipMessage = "Error al copiar, inténtalo de nuevo.";
+    name:'internalMenuModal',
+    data() {
+        return {
+            tooltipMessage: 'Haz clic para copiar',
+            profilePicture: null,
+            profilePictureLoading: true,
+            base: '',
         }
     },
-    setProfilePictureClass(){
-        const img = new Image();
-        img.src = this.profilePicture;
-        const height = img.naturalHeight;
-        const width = img.naturalWidth;
-        if (height > width){
-            return 'profile-picture profile-picture-heightGreater'
-        }else if (width > height){
-            return 'profile-picture profile-picture-widthGreater'
-        }else if (width === height){
-            return 'profile-picture'
+    methods:{
+        open() {
+            this.$bvModal.show('internalMenuModal');
+        },
+        logout(){
+            this.$emit('logout')
+        },
+        redefineTooltip() {
+            /* Need the setTimeout to compensate the tolltip fade out */
+            setTimeout(() => {
+                this.tooltipMessage = 'Haz clic para copiar';
+            }, 300)
+        },
+        async copy(message) {
+            try {
+                await copyToClipboard(message);
+                this.tooltipMessage = "¡Copiado!";
+            } catch(e) {
+                this.tooltipMessage = "Error al copiar, inténtalo de nuevo.";
+            }
+        },
+        setProfilePictureClass(){
+            const img = new Image();
+            img.src =`${this.base}img/${this.profilePicture}`;
+            const height = img.naturalHeight;
+            const width = img.naturalWidth;
+            if (height > width){
+                return 'profile-picture profile-picture-heightGreater'
+            }else if (width > height){
+                return 'profile-picture profile-picture-widthGreater'
+            }else if (width === height){
+                return 'profile-picture'
+            }
         }
-    }
-  },
-  mounted(){
-    this.profilePicture = this.$store.state.auth.user.profile_picture;
-  }
-  
+    },
+    mounted(){
+        this.profilePicture = this.$store.state.auth.user.profile_picture;
+        this.base = this.$router.options.base;
+    },  
 }
 </script>
 

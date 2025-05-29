@@ -6,10 +6,10 @@
           <b-card class="card-left">
             <div class="icon d-flex justify-content-center align-items-center">
               <div v-if="icon === ' ' || icon === null || !icon" class="brown-circle d-flex justify-content-center align-items-center">
-                <b-avatar class="avatar" src="/img/ewallet-unknown-profilePicture.png"/>
+                <b-avatar class="avatar" :src="`${$router.options.base}img/ewallet-unknown-profilePicture.png`"/>
               </div>
               <div v-else>
-                <b-avatar class="avatar" :src="icon"/>
+                <b-avatar class="avatar" :src="`${$router.options.base}img/${icon}`"/>
               </div>
             </div>
           </b-card>
@@ -62,7 +62,7 @@
               <b-col cols="9" xl="4" lg="4" md="5" class="mt-4">
                 <div class="mt-4">
                   <b-form-input :type="showPin ? 'text' : 'password'" :formatter="formatewalletPin" v-model="walletPin" placeholder="PIN*" required></b-form-input>
-                  <img class="pass-eye" @click="showPin = !showPin" role="img" :src="!showPin ? passwordIcons[1] : passwordIcons[0]" :alt="!showPin ? 'Mostrar ewalletletPIN.' : 'OcultewaewalletaroPIN.'"/>
+                  <img class="pass-eye" @click="showPin = !showPin" role="img" :src="!showPin ? `${$router.options.base}img/${passwordIcons[1]}` : `${$router.options.base}img/${passwordIcons[0]}`" :alt="!showPin ? 'Mostrar ewalletletPIN.' : 'OcultewaewalletaroPIN.'"/>
                   <div class="d-flex justify-content-center text-danger mt-1" v-if="pin_error">Pin incorrecto</div>
                 </div>
               </b-col>
@@ -94,8 +94,8 @@ export default {
     return {
       sharedData,
       passwordIcons:[
-          "/img/icon-bootstrap-eye-slash.svg",
-          "/img/icon-bootstrap-eye.svg",
+          "icon-bootstrap-eye-slash.svg",
+          "icon-bootstrap-eye.svg",
       ],
       showPin: false,
       walletPin: '',

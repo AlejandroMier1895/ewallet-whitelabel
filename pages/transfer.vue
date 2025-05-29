@@ -19,7 +19,7 @@
                                     <div class="mt-3 ml-2">
                                         <div v-if="loadingContacts" class="d-flex justify-content-center align-items-center skeletons-div">
                                             <b-list-group-item @click="$bvModal.show('addContactModal')" class="contacts-item align-items-center pl-0 pr-0">
-                                                <div class="phone contact--icon"><img src="../static/img/ewallet-plus.svg" alt="Agregar contacto." role="img"/></div>
+                                                <div class="phone contact--icon"><img :src="`${$router.options.base}img/ewallet-plus.svg`" alt="Agregar contacto." role="img"/></div>
                                                 <div class="contact--info phone">
                                                     <div class="addContact-txt phone">Agregar</div>
                                                 </div>
@@ -36,7 +36,7 @@
                                         
                                         <b-list-group v-else-if="!loadingContacts" class="mt-3 contact--list position-relative">
                                             <b-list-group-item @click="$bvModal.show('addContactModal')" class="contacts-item align-items-center pl-0 pr-0">
-                                                <div class="contact--icon plus-icon"><img src="../static/img/ewallet-plus.svg" alt="Agregar contacto." role="img"/></div>
+                                                <div class="contact--icon plus-icon"><img :src="`${$router.options.base}img/ewallet-plus.svg`" alt="Agregar contacto." role="img"/></div>
                                                 <div class="contact--info">
                                                     <div class="addContact-txt phone">Agregar</div>
                                                 </div>

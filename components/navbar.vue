@@ -14,7 +14,7 @@
                 <b-avatar :src="`${$router.options.base}img/${profilePicture}`"></b-avatar>
               </div>
               <span class="account-name d-flex justify-content-center align-items-center px-2" ref="account-name-span">{{account_name}}</span>
-              <img style="width: 17px;" src="../static/img/icon-caretThin-down.svg" alt="Abrir menú desplegable para cerrar sesión." role="img"/>
+              <img style="width: 17px;" :src="`${$router.options.base}img/icon-caretThin-down.svg`" alt="Abrir menú desplegable para cerrar sesión." role="img"/>
             </template>
             <b-dropdown-item @click="logout()">Cerrar Sesión</b-dropdown-item>
             </b-nav-item-dropdown>
@@ -45,7 +45,7 @@
                     <div v-if="this.$route.path == '/dashboard'" class="mt-4">
                       <div class="d-flex justify-content-center align-items-center accounting-rectangleGreen-parent">
                           <div class="accounting-rectangle accounting-rectangleGreen d-flex justify-content-center align-items-center">
-                              <img class="card-image mr-3" src="/img/ewallet-debitCard.svg" alt="Debit card icon">
+                              <img class="card-image mr-3" :src="`${$router.options.base}img/ewallet-debitCard.svg`" alt="Debit card icon">
                           </div>
                           <div>
                               <div class="accounting-text">Débito</div>
@@ -56,7 +56,7 @@
                       </div>
                       <div class="d-flex justify-content-center align-items-center">
                           <div class="accounting-rectangle accounting-rectangleRed d-flex justify-content-center align-items-center">
-                              <img class="card-image mr-3" src="/img/ewallet-creditCard.svg" alt="Credit card icon">
+                              <img class="card-image mr-3" :src="`${$router.options.base}img/ewallet-creditCard.svg`" alt="Credit card icon">
                           </div>
                           <div>
                               <div class="accounting-text">Crédito</div>

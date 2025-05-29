@@ -2,7 +2,7 @@
     <div id="error-page" class="d-flex justify-content-center align-items-center">
         <div>
             <div class="d-flex justify-content-center error-img">
-                <img src="../static/img/ewallet-error.svg" alt="Ícono con texto: Oooops." role="img"/>
+                <img :src="`${$router.options.base}img/ewallet-error.svg`" alt="Ícono con texto: Oooops." role="img"/>
             </div>
             <div v-if="error.statusCode === 404">
                 <div class="d-flex justify-content-center error-title">Esta pagina no </div>

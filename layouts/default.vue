@@ -2,7 +2,7 @@
   <div>
     <div class="vertical-menu">
       <div class="div-logo d-flex justify-content-center align-items-center">
-         <img class="logo" src="/img/ewallet-fullLogo-brown.svg" alt="E-wallet logotipo." @click="$router.push('/dashboard')">
+         <img class="logo" :src="`${$router.options.base}img/ewallet-fullLogo-brown.svg`" alt="E-wallet logotipo." @click="$router.push('/dashboard')">
       </div>
       <div style="margin-left:33px;">
         <div class="mt-5 menu-balance menu-balance-black menu-balance-title">Balance de cuenta</div>

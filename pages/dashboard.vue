@@ -69,25 +69,25 @@
                                             </div>
                                         </div>
                                         <div class="d-flex justify-content-start align-items-center mb-3">
-                                            <img class="card-image mr-3" src="/img/ewallet-debitCard.svg" alt="Debit card icon">
+                                            <img class="card-image mr-3" :src="`${$router.options.base}img/ewallet-debitCard.svg`" alt="Debit card icon">
                                             <div class="account-info">
                                                 <div class="title">Débito</div>
                                                 <div class="description d-flex justify-content-center align-items-center">
                                                     <div class="accountInfo-ewalletletID mr-3">{{ewalletUser.debit_card}}</div>
                                                     <button class="btn copy-btn" type="button" @click="copy(ewalletUser.debit_card)" v-b-tooltip.hover :title="tooltipMessage" @mouseleave="redefineTooltip">
-                                                        <img class="copyToClipboard" src="../static/img/ewallet-copyToClipboard.svg" alt="Copiar ewalletID." role="img"/>
+                                                        <img class="copyToClipboard" :src="`${$router.options.base}img/ewallet-copyToClipboard.svg`" alt="Copiar ewalletID." role="img"/>
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="d-flex justify-content-start align-items-center">
-                                            <img class="card-image mr-3" src="/img/ewallet-creditCard.svg" alt="Credit card icon">
+                                            <img class="card-image mr-3" :src="`${$router.options.base}img/ewallet-creditCard.svg`" alt="Credit card icon">
                                             <div class="account-info">
                                                 <div class="title">Crédito</div>
                                                 <div class="description d-flex justify-content-center align-items-center">
                                                     <div class="accountInfo-ewalletletID mr-3">{{ewalletUser.credit_card}}</div>
                                                     <button class="btn copy-btn" type="button" @click="copy(ewalletUser.credit_card)" v-b-tooltip.hover :title="tooltipMessage" @mouseleave="redefineTooltip">
-                                                        <img class="copyToClipboard" src="../static/img/ewallet-copyToClipboard.svg" alt="Copiar ewalletID." role="img"/>
+                                                        <img class="copyToClipboard" :src="`${$router.options.base}img/ewallet-copyToClipboard.svg`" alt="Copiar ewalletID." role="img"/>
                                                     </button>
                                                 </div>
                                             </div>
@@ -131,7 +131,7 @@
                             <div class="d-flex justify-content-start align-items-center">
                                 <div class="sendMoney-group" @click="$router.push({path: '/transfer', hash: 'addContact'})">
                                     <div class="sendMoney-img d-flex justify-content-center">
-                                        <img src="../static/img/ewallet-plus.svg" alt="Agregar contacto." role="img"/>
+                                        <img :src="`${$router.options.base}img/ewallet-plus.svg`" alt="Agregar contacto." role="img"/>
                                     </div>
                                     <div class="sendMoney-txt">Enviar</div>
                                 </div>
@@ -147,7 +147,7 @@
                                     <div v-if="contacts.length === 0" class="contact-group" v-for="contact in contactsEmpty" :key="contact.name">
                                         <div class="contact-img d-flex justify-content-center" @click="$router.push({path: '/transfer', hash: 'addContact'})">
                                             <div class="contact-avatar contact-avatar-empty d-flex justify-content-center align-items-center">
-                                                <img :class="'contact-avatar-empty-' + contact.name" :src="require('../static/img/' + contact.icon)" alt="Imagen de perfil de Perfil" role="img"/>
+                                                <img :class="'contact-avatar-empty-' + contact.name" :src="`${$router.options.base}img/${contact.icon}`" alt="Imagen de perfil de Perfil" role="img"/>
                                             </div>
                                         </div>
                                         <div class="contact-txt contact-txt-emtpy">{{ contact.name }}</div>
@@ -155,7 +155,7 @@
                                     <div v-if="contacts.length === 0" class="addContacts-text" @click="$router.push({path: '/transfer', hash: 'addContact'})">Agrega nuevos contactos +</div>
                                     <div v-else class="contact-group" v-for="contact in contacts" :key="contact.contact_user_email">
                                         <div class="contact-img d-flex justify-content-center" @click="$router.push({path: '/transfer', hash: 'contact-' + contacts.findIndex(x => x.contact_user_email === contact.contact_user_email)})">
-                                            <b-avatar class="contact-avatar" :src="contact.profile_picture"/>
+                                            <b-avatar class="contact-avatar" :src="`${$router.options.base}img/${contact.profile_picture}`"/>
                                         </div>
                                         <div class="contact-txt">{{ contactNicknameFormatter(contact.nickname) }}</div>
                                     </div>
@@ -169,7 +169,7 @@
                                 <b-card-body v-if="transactions.length === 0 && !loading" class="no-transactions d-flex align-items-center justify-content-center">
                                     <div class="d-flex justify-content-center align-items-center">
                                         <b-card-text class="d-flex align-items-center justify-content-center">
-                                            <img src="../static/img/ewallet-noTransactions.svg" alt="No hay transacciones disponibles." role="img"/>
+                                            <img :src="`${$router.options.base}img/ewallet-noTransactions.svg`" alt="No hay transacciones disponibles." role="img"/>
                                         </b-card-text>
                                     </div>
                                 </b-card-body>
@@ -186,7 +186,7 @@
                                             <b-col cols="8">
                                                 <div class="d-flex align-items-center">
                                                     <div class="d-flex align-items-center position-relative">
-                                                        <img class="mr-3 transaction-icon" :src="data.item.transaction_status === 'Cancelado' || data.item.transaction_status === 'Rechazado' || data.item.transaction_status === 'Expirado' ? '/img/transactions/red.svg' : data.item.transaction_status === 'Exitoso' ? '/img/ewallet-successfulTransaction.svg' : '/img/ewallet-pendingTransaction.svg'" :alt="data.item.transaction_status === 'Cancelado' || data.item.transaction_status === 'Rechazado' || data.item.transaction_status === 'Expirado' ? 'Transacción no exitosa.' : data.item.transaction_status === 'Exitoso' ? 'Transacción exitosa.' : 'Transacción pendiente.'" role="img"/>
+                                                        <img class="mr-3 transaction-icon" :src="data.item.transaction_status === 'Exitoso' ? `${$router.options.base}img/ewallet-successfulTransaction.svg` : `${$router.options.base}img/ewallet-pendingTransaction.svg`" :alt="data.item.transaction_status === 'Cancelado' || data.item.transaction_status === 'Rechazado' || data.item.transaction_status === 'Expirado' ? 'Transacción no exitosa.' : data.item.transaction_status === 'Exitoso' ? 'Transacción exitosa.' : 'Transacción pendiente.'" role="img"/>
                                                     </div>
                                                     <div>
                                                         <div class="transaction-title">{{data.item.transaction_type}}</div>

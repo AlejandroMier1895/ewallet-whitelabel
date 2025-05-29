@@ -6,12 +6,12 @@
     
     <TopBar>
       <template v-slot:mobile>
-        <img src="/img/ewallet-fullLogo-white.svg" id="whiteLogo" alt="E-wallet logotipo." role="img"/>
+        <img :src="`${$router.options.base}img/ewallet-fullLogo-white.svg`" id="whiteLogo" alt="E-wallet logotipo." role="img"/>
       </template>
 
       <template v-slot:desktop>
         <div class="topBar-login">
-          <img src="/img/ewallet-fullLogo-brown.svg" alt="E-wallet logotipo.">
+          <img :src="`${$router.options.base}img/ewallet-fullLogo-brown.svg`" alt="E-wallet logotipo.">
         </div>
       </template>
     </TopBar>
@@ -32,7 +32,7 @@
         <div class="position-relative">
           <b-form-input id="password" :type="showPass ? 'text' : 'password'" v-model="login.password"
             placeholder="Contraseña" required></b-form-input>
-            <img class="pass-eye" @click="showPass = !showPass" role="img" :src="!showPass ? passwordIcons[1] : passwordIcons[0]" :alt="!showPass ? 'Mostrar contraseña.' : 'Ocultar contraseña.'"/>
+            <img class="pass-eye" @click="showPass = !showPass" role="img" :src="!showPass ? `${$router.options.base}img/${passwordIcons[1]}` : `${$router.options.base}img/${passwordIcons[0]}`" :alt="!showPass ? 'Mostrar contraseña.' : 'Ocultar contraseña.'"/>
         </div>
 
         <div class="forgot-password"><a tabindex="0">¿Olvidaste tu contraseña?</a></div>
@@ -43,7 +43,7 @@
     </div>
 
     <div id="background">
-      <img rel="preload" src="/img/ewallet-backgroundLogin.svg" role="img" alt="Dos olas con los colores de E-wallet, naranja y verde, como imagen de fondo."/>
+      <img rel="preload" :src="`${$router.options.base}img/ewallet-backgroundLogin.svg`" role="img" alt="Dos olas con los colores de E-wallet, naranja y verde, como imagen de fondo."/>
     </div>
   </div>
 </template>
@@ -64,8 +64,8 @@ export default {
       },
       showPass: false,
       passwordIcons: [
-        "/img/icon-bootstrap-eye-slash.svg",
-        "/img/icon-bootstrap-eye.svg",
+        "icon-bootstrap-eye-slash.svg",
+        "icon-bootstrap-eye.svg",
       ],
     };
   },
