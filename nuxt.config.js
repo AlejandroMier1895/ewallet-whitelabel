@@ -96,8 +96,8 @@ export default {
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [
         { src: '~/plugins/mock-api.js', mode: 'client' },
-        '~/plugins/mock-auth.js',
         '~/plugins/mock-store-auth.js',
+        '~/plugins/mock-auth.js',
         '~/plugins/apicall.js',
     ],
 }

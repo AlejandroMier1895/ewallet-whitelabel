@@ -11,6 +11,8 @@ export default function({ store }, inject) {
             if (store._modulesNamespaceMap['auth/']) {
                 store.commit('auth/setUser', user);
                 store.commit('auth/setLoggedIn', !!user);
+            } else {
+                console.warn("El módulo 'auth' no está registrado aún.");
             }
         },
         logout() {

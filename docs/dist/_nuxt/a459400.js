@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[9],{398:function(n,t,e){"use strict";e.r(t);var o={layout:"coming-soon",middleware:"auth-ready"},l=e(39),component=Object(l.a)(o,(function(){return(0,this._self._c)("div",{attrs:{id:"deposit-page"}})}),[],!1,null,null,null);t.default=component.exports}}]);
