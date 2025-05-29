@@ -17,7 +17,7 @@
 
       <nuxt-link v-for="link in sideLinks" :key="link.path" :to="link.path" class="vertical-menu--links">
         <div>
-          <img class="mr-3" :src="`/img/ewallet-${link.icon}.svg`" :alt="'Ir a ' + link.name + '.'" role="img"/>
+          <img class="mr-3" :src="`${$router.options.base}img/ewallet-${link.icon}.svg`" :alt="'Ir a ' + link.name + '.'" role="img"/>
           <span>{{ link.name }}</span>
         </div>
       </nuxt-link>
