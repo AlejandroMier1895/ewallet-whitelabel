@@ -20,7 +20,7 @@ export default {
             { name: 'theme-color', content: '#8C4B1F' },
         ],
         link: [
-            { rel: 'icon', type: 'image/x-icon', href: process.env.ASSET_BASE_URL + 'favicon.ico' },
+            { rel: 'icon', type: 'image/x-icon', href: process.env.NUXT_ENV_ROUTER_BASE + 'favicon.ico' },
             { rel: 'stylesheet', type: 'text/css', href: 'https://fonts.googleapis.com/css?family=Montserrat' },
             { rel: 'stylesheet', type: 'text/css', href: 'https://fonts.googleapis.com/css?family=Roboto' },
             { rel: "stylesheet", type: 'text/css', href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap' }
