@@ -107,8 +107,7 @@ export default {
     async logout(){
       await this.$auth.logout()
       
-      window.location.replace('../');
-      //window.location.reload(true);
+      window.location.replace('/ewallet-whitelabel/');
     },
     setBalanceClass(){
       switch(this.balance.length){

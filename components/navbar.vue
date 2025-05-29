@@ -109,7 +109,7 @@ export default {
       this.$refs.internalMenu.open();
     },
     async logout() {
-      window.location.replace('/');
+      window.location.replace('/ewallet-whitelabel/');
 
       setTimeout(() => {
         this.$auth.logout().catch(err => {
