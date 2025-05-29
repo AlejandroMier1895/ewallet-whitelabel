@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar justify-content-center">
+  <div class="navbar justify-content-center" :style="bgStyle">
     <div class="mobile">
       <slot name="mobile"></slot>
     </div>
@@ -10,6 +10,32 @@
   </div>
 </template>
 
+<script> 
+export default {
+  data(){
+    return{
+      isMobile: false
+    }
+  },
+  computed: {
+    bgStyle() {
+      if (this.isMobile) {
+        return {
+          backgroundImage: `url('${this.$router.options.base}img/ewallet-header.png')`
+        }
+      }
+      return {}
+    }
+  },
+  mounted(){
+    this.isMobile = window.innerWidth <= 1205
+    window.addEventListener('resize', () => {
+      this.isMobile = window.innerWidth <= 1205
+    })
+  }
+}
+</script>
+
 <style lang="scss" scoped>
 .mobile {
   display: none;
@@ -18,7 +44,6 @@
 
 @media screen and (max-width: 1205px) {
   .navbar {
-    background-image: url("/img/ewallet-header.png");
     height: 150px;
     background-position-y: center;
     background-repeat: no-repeat;

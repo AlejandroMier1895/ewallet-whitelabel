@@ -1,5 +1,4 @@
 export default function({ store }, inject) {
-    if (process.env.NODE_ENV !== 'development') return;
 
     const mockAuth = {
         loggedIn: true,

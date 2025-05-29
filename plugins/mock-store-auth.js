@@ -1,5 +1,4 @@
 export default function({ store }) {
-    if (process.env.NODE_ENV !== 'development') return;
 
     store.registerModule('auth', {
         namespaced: true,

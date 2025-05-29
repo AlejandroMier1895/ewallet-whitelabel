@@ -123,6 +123,10 @@ export default {
     mounted(){
         this.profilePicture = this.$store.state.auth.user.profile_picture;
         this.base = this.$router.options.base;
+        const el = document.querySelector('.modal-header');
+        if (el) {
+            el.style.backgroundImage = `url('${this.base}img/ewallet-header.png')`;
+        }
     },  
 }
 </script>
@@ -147,7 +151,6 @@ html { min-height: 100%;}
     }
     .modal-header{
         border-bottom: 0px;
-        background-image: url("/img/ewallet-header.png");
         height: 12.7vh;
         border-radius: 0px 0px 35px 35px;
         background-size: cover;

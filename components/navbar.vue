@@ -1,5 +1,5 @@
 <template >
-    <b-navbar toggleable="lg"  type="white" variant="info" class="p-0" id="navbar" >
+    <b-navbar toggleable="lg"  type="white" variant="info" class="p-0" id="navbar" :style="bgStyle">
       <b-collapse id="computer" is-nav >
         <b-navbar-nav class="topMenu">
             <b-nav-item  :class="[  this.$route.path == '/dashboard'  ? 'mt-1 ml-5 active-page' : 'mt-1 ml-5 unactive-page' ] " to="/dashboard">Resumen</b-nav-item>
@@ -101,6 +101,7 @@ export default {
       accountingInterval: '',
       tooltipMessage: 'Haz clic para copiar',
       businessCredentialsStatus: false,
+      isMobile: false
     }
   },
   methods: {
@@ -154,6 +155,14 @@ export default {
     ewalletUser(){
         return this.$store.state.auth.user;
     },
+    bgStyle() {
+      if (this.isMobile) {
+        return {
+          backgroundImage: `url('${this.$router.options.base}img/ewallet-header.png')`
+        }
+      }
+      return {}
+    }
   },
   mounted(){
     this.profilePicture = this.ewalletUser.profile_picture;
@@ -193,6 +202,10 @@ export default {
       '/dashboard': this.welcomeMessage,
       '/transfer':'Transferir',
     };
+    this.isMobile = window.innerWidth <= 1205
+    window.addEventListener('resize', () => {
+      this.isMobile = window.innerWidth <= 1205
+    })
   },
 }
 </script>
@@ -307,7 +320,6 @@ export default {
     @media only screen and (max-width: 1205px) {
       height: 120px;
       margin-bottom: 13%;
-      background-image: url("/img/ewallet-header.png");
       background-position-y: center;
       background-repeat: no-repeat;
       background-size: cover;
